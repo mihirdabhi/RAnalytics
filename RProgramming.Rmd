@@ -189,3 +189,6 @@ ggplot(mpg) + aes(displace, highway) + geom_point()
 #geom_rug()
 
 
+
+
+
