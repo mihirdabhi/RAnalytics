@@ -33,3 +33,159 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 c(1,2,4)
 
+
+c("mihir","milan")
+
+#Odd Numbers < 100. Sequence of numbers between 1 - 100 with a difference of 2
+seq(1, 100, 2)
+9
+#Add  5 to each element (arithmetic operations)
+c(10, 20, 30, 40) + 5
+
+#Divide each element by 5
+c(10, 20, 30, 40, 50) /5
+
+#Variables
+
+subjects <- c("Alice", "Bob", "Charlie", "Dan", "Fiona", "Gab")
+weight <- c(60, 72, 57, 90, 72, 95)
+height <- c(1.75, 1.80, 1.65, 1.90, 1.91, 1.74)
+
+subjects
+ 
+weight / (height ^ 2)
+
+bmi <- weight / (height ^ 2) #BMI body mass index
+
+#Logical values
+
+#A simple vector containing logical values.
+c(TRUE, FALSE, TRUE, TRUE)
+
+bmi > 25 
+
+subjects[bmi > 25]  
+
+#Exercise
+
+students <- c("Alex", "Aria", "Addison", "Aurora")
+exam1 <- c(50, 65, 45, 35)
+exam2 <- c(85, 72, 81, 62)
+exam3 <- c(62, 55, 85, 42)
+
+average_grade <- (exam1 + exam2 + exam3) / 3
+average_grade
+
+students[average_grade >= 50]
+
+#Data frames
+
+bmi_data <- data.frame(subjects, weight, height)
+bmi_data
+
+bmi_data[c("subjects", "height")]
+
+#first and third column
+bmi_data[c(1, 3)]
+
+#get second row, first column 
+bmi_data[2,1]
+
+#get second and third row, column 1 to 3
+bmi_data[c(2,3), 1:3]
+
+#first three rows and columns
+bmi_data[1:3,]
+
+#second and third column, all rows
+bmi_data[,c(2,3)]
+         
+cols <- c(F, T, T)
+rows <- c(T, T, T, F, F, F)
+bmi_data[rows, cols]
+
+#creating new columns
+
+bmi_data$bmi <- bmi_data$weight / (bmi_data$height ^ 2)
+bmi_data
+
+bmi_data[bmi_data$bmi>25,]
+
+#Exercise
+
+students_data<- data.frame(students, exam1, exam2, exam3)
+students_data$average_grade <- (students_data$exam1 + students_data$exam2 + students_data$exam3) /3
+students_data[students_data$average_grade >= 50, c("students", "average_grade")]
+
+
+#Built-in data sets 
+
+data()
+
+#review a description of a built in data set with ? (or the help() function)
+
+? cars
+
+library(ggplot2)
+ggplot(diamonds) + aes(carat, price) + geom_point(alpha = 0.5)
+
+set.seed(2)
+
+sampleDiamonds <- diamonds[sample(nrow(diamonds), 500), ]
+
+ggplot(sampleDiamonds) + aes(carat, price) + geom_point(alpha = 0.5)
+
+ggplot(sampleDiamonds) + aes(carat, price, colour = cut) + geom_point(alpha = 0.5)
+
+ggplot(sampleDiamonds) + aes(log(carat), log(price), colour = cut) + geom_point(alpha = 0.5)
+
+diamondPlot <- ggplot(sampleDiamonds) + aes(carat, price, color = cut)
+diamondPlot + geom_line()
+
+diamondPlot + geom_smooth()
+
+diamondPlot + geom_rug()
+
+
+ggplot(sampleDiamonds) + aes(carat, price, colour = cut) +
+ geom_point() + geom_smooth()
+
+ggplot(sampleDiamonds) +
+  geom_point(aes(carat, price, colour = cut)) + geom_smooth(aes(carat, price))
+
+ggplot(sampleDiamonds) + aes(carat, price, colour = cut) +
+  geom_point() + geom_rug() + geom_smooth(aes(carat, price, colour = NULL))
+
+ggplot(sampleDiamonds) + geom_point(aes(carat, price, colour = cut)) +
+  geom_histogram(aes(carat), data = diamonds)
+
+ggplot(diamonds) + aes(cut) + geom_bar()
+
+ggplot(diamonds) + aes(cut, fill = color) + geom_bar()
+
+ggplot(diamonds) + aes(x = "", fill = cut) + geom_bar() + coord_polar("y")
+
+
+Exerecise
+#1
+?mpg
+
+#2. Create a scatter plot of the mpg data set showing displacement by highway miles.
+#ggplot(mpg) + aes(displ, hwy) + geom_point()
+
+ggplot(data = mpg, mapping = aes(x = displ, y = high)) + geom_point()
+
+ggplot(mpg) + aes(displace, highway) + geom_point()
+
+#3. In the same chart, map the city miles per gallon to the size aesthetic. What does the chart show?
+#Did you expect this result?
+#ggplot(mpg) + aes(displ, hwy, size = cty) + geom_point()
+
+#4. Colour the dots with the type of car.
+#ggplot(mpg) + aes(displ, hwy, size = cty, colour = class) + geom_point()
+
+#5. Remove the size mapping and overlay a rug chart.
+#ggplot(mpg) + aes(displ, hwy, colour = class) + geom_point() +
+#geom_rug()
+
+
